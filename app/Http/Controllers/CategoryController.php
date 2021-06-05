@@ -111,4 +111,9 @@ class CategoryController extends Controller
 
         return response()->json(['success'=>'Category deleted successfully.']);
     }
+
+    public function form()
+    {
+        return view('sol-admin.form.index');
+    }
 }

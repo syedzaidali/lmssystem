@@ -1,3 +1,10 @@
+@section('sol-style')
+<style>
+
+</style>
+
+@endsection
+
 <section class="dashboard_sidebar dn-1199">
     <div class="dashboard_sidebars">
         <div class="user_board">
@@ -19,10 +26,20 @@
                     <li><a href=""><span class="flaticon-rating"></span> Reviews</a></li>
                     <li><a href=""><span class="flaticon-like"></span> Bookmarks</a></li>
                     <li><a href="{{route('listing')}}"><span class="flaticon-add-contact"></span> Add listing</a></li>
-                    <li><a href="{{route('categories.index')}}"><span class="flaticon-add-contact"></span> Add Categories</a></li>
-                    <li><a href="{{route('subcategories.index')}}"><span class="flaticon-add-contact"></span> Add Sub Categories</a></li>
-                    <li><a href="{{route('childcategories.index')}}"><span class="flaticon-add-contact"></span> Add Child Categories</a></li>
-                    <!-- <li><a href="{{route('component')}}"><span class="flaticon-add-contact"></span> Component</a></li> -->
+
+                    <!-- <li> <a class="dropdowm_menu"> <span class="flaticon-add-contact"></span> Catagoiry</a></li>
+                    <li class="dropdown-menu1 _menu"><a href="#"><span class="flaticon-add-contact"></span> HTML</a></li>
+                    <li class="dropdown-menu1 _menu"><a href="#"><span class="flaticon-add-contact"></span>CSS</a></li>
+                    <li class="dropdown-menu1 _menu"><a href="#"><span class="flaticon-add-contact"></span>JavaScript</a></li> -->
+
+
+                    <li><a href="{{route('categories.index')}}"><span class="flaticon-add-contact"></span> Add
+                            Categories</a></li>
+                    <li><a href="{{route('subcategories.index')}}"><span class="flaticon-add-contact"></span> Add Sub
+                            Categories</a></li>
+                    <li><a href="{{route('childcategories.index')}}"><span class="flaticon-add-contact"></span> Add
+                            Child Categories</a></li>
+                    <li><a href="{{route('form')}}"><span class="flaticon-add-contact"></span> Form</a></li>
                 </ul>
                 <h4>Account</h4>
                 <ul>
@@ -33,3 +50,9 @@
         </div>
     </div>
 </section>
+
+
+@section('sol-script')
+
+
+@endsection

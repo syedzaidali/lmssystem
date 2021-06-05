@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Route::get('/homes', 'FrontController@soleHome')->name('sol-index');
 Route::get('/sol/course-list', 'FrontController@courseList')->name('sol-course-list');
 Route::get('/sol/course-details', 'FrontController@courseDetails')->name('sol-course-details');
@@ -38,6 +39,10 @@ Route::get('/categoies/store', 'CategoryController@store')->name('categoies-stor
 Route::get('/categoies/edit/{id}', 'CategoryController@edit')->name('categoies-edit');
 Route::get('/categoies/update/{id}', 'CategoryController@update')->name('categoies-update');
 Route::get('/categoies/status/{id}', 'CategoryController@status')->name('categoies-status');
+
+
+// form
+Route::get('/form', 'CategoryController@form')->name('form');
 
 Route::resource('categories','CategoryController');
 Route::resource('subcategories','SubCatehoryController');

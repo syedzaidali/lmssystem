@@ -47,7 +47,9 @@
                         <img class="logo1 img-fluid" src="{{asset('sol-assets/images/logos.png')}}" height="40px"
                             width="240px" alt="header-logos.png">
 
-                        <!-- <img class="logo2 img-fluid" src="sol-assets/images/header-logos.png" alt="header-logos.png"> -->
+                        <img class="logo2 img-fluid" src="{{asset('sol-assets/images/logos.png')}}"
+                            alt="header-logos.png" height="40px"
+                            width="240px">
                         <!-- <span>edumy</span> -->
                     </a>
                     <!-- Responsive Menu Structure-->
@@ -437,14 +439,16 @@
 
     @yield('sol-script')
 
+ 
     <script type="text/javascript" src="{{asset('sol-assets/js/jquery-3.3.1.js')}}"></script>
     <script type="text/javascript" src="{{asset('sol-assets/js/jquery-migrate-3.0.0.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('sol-assets/js/popper.min.js')}}"></script>
 
-    <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js')}}"></script>
+    <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js')}}">
+    </script>
     <script src="{{asset('https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js')}}"></script>
-	
-	
+
+
     <script type="text/javascript" src="{{asset('sol-assets/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('sol-assets/js/jquery.mmenu.all.js')}}"></script>
     <script type="text/javascript" src="{{asset('sol-assets/js/ace-responsive-menu.js')}}"></script>
@@ -467,7 +471,16 @@
     <!-- Custom script for all pages -->
     <script type="text/javascript" src="{{asset('sol-assets/js/script.js')}}"></script>
 
+    <script>
+    $(function() {
+        $('.dropdowm_menu').click(function() {
+            // alert('succes');
+            $('._menu').toggleClass('show');
 
+        });
+
+    });
+    </script>
 
 
 </body>

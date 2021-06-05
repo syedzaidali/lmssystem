@@ -39,7 +39,9 @@ Route::get('/categoies/edit/{id}', 'CategoryController@edit')->name('categoies-e
 Route::get('/categoies/update/{id}', 'CategoryController@update')->name('categoies-update');
 Route::get('/categoies/status/{id}', 'CategoryController@status')->name('categoies-status');
 
-Route::resource('ajaxproducts','CategoryController');
+Route::resource('categories','CategoryController');
+Route::resource('subcategories','SubCatehoryController');
+Route::resource('childcategories','ChildCatehoryController');
 
 
 

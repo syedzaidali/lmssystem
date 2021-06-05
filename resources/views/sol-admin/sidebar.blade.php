@@ -19,7 +19,9 @@
                     <li><a href=""><span class="flaticon-rating"></span> Reviews</a></li>
                     <li><a href=""><span class="flaticon-like"></span> Bookmarks</a></li>
                     <li><a href="{{route('listing')}}"><span class="flaticon-add-contact"></span> Add listing</a></li>
-                    <li><a href="{{route('ajaxproducts.index')}}"><span class="flaticon-add-contact"></span> Add Categories</a></li>
+                    <li><a href="{{route('categories.index')}}"><span class="flaticon-add-contact"></span> Add Categories</a></li>
+                    <li><a href="{{route('subcategories.index')}}"><span class="flaticon-add-contact"></span> Add Sub Categories</a></li>
+                    <li><a href="{{route('childcategories.index')}}"><span class="flaticon-add-contact"></span> Add Child Categories</a></li>
                     <!-- <li><a href="{{route('component')}}"><span class="flaticon-add-contact"></span> Component</a></li> -->
                 </ul>
                 <h4>Account</h4>

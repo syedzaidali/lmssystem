@@ -8,6 +8,8 @@ class FrontController extends Controller
 {
     public function  soleHome()
     {
+
+        $
         // dd('Online Tutor');
         return view('solfrontend.sol-index');
 

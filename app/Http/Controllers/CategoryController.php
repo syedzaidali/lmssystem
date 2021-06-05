@@ -61,7 +61,7 @@ class CategoryController extends Controller
                  'status' => $request->status,
                  ]);
 
-        return response()->json(['success'=>'Product saved successfully.']);
+        return response()->json(['success'=>'Category saved successfully.']);
     }
 
     /**
@@ -109,6 +109,6 @@ class CategoryController extends Controller
     {
         Category::find($id)->delete();
 
-        return response()->json(['success'=>'Product deleted successfully.']);
+        return response()->json(['success'=>'Category deleted successfully.']);
     }
 }

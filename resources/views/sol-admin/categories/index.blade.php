@@ -87,7 +87,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Status</label>
                         <div class="col-sm-12">
-                            <select name="status" id="status" >
+                            <select name="status" id="status"  class="form-control">
                                 <option value="">Select Status</option>
                                 <option value="1">Actived</option>
                                 <option value="0">Deactived</option>
@@ -132,7 +132,7 @@ $(function() {
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('ajaxproducts.index') }}",
+        ajax: "{{ route('categories.index') }}",
         columns: [{
                 data: 'DT_RowIndex',
                 name: 'DT_RowIndex'
@@ -168,7 +168,7 @@ $(function() {
 
     $('body').on('click', '.editProduct', function() {
         var product_id = $(this).data('id');
-        $.get("{{ route('ajaxproducts.index') }}" + '/' + product_id + '/edit', function(data) {
+        $.get("{{ route('categories.index') }}" + '/' + product_id + '/edit', function(data) {
             $('#modelHeading').html("Edit Product");
             $('#saveBtn').val("edit-user");
             $('#ajaxModel').modal('show');
@@ -187,7 +187,7 @@ $(function() {
 
         $.ajax({
             data: $('#productForm').serialize(),
-            url: "{{ route('ajaxproducts.store') }}",
+            url: "{{ route('categories.store') }}",
             type: "POST",
             dataType: 'json',
             success: function(data) {
@@ -211,7 +211,7 @@ $(function() {
 
         $.ajax({
             type: "DELETE",
-            url: "{{ route('ajaxproducts.store') }}" + '/' + product_id,
+            url: "{{ route('categories.store') }}" + '/' + product_id,
             success: function(data) {
                 table.draw();
             },

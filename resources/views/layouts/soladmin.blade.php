@@ -471,7 +471,7 @@
     <!-- Custom script for all pages -->
     <script type="text/javascript" src="{{asset('sol-assets/js/script.js')}}"></script>
 
-    <script>
+    <!-- <script>
     $(function() {
         $('.dropdowm_menu').click(function() {
             // alert('succes');
@@ -480,7 +480,7 @@
         });
 
     });
-    </script>
+    </script> -->
 
 
 </body>

@@ -19,7 +19,7 @@
         </div>
     </div>
 </section>
-<section class="our-log bgc-fa">
+<section class="our-log bgc-fa ">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-lg-6 offset-lg-3">
@@ -64,4 +64,6 @@
         </div>
     </div>
 </section>
+
+
 @endsection

@@ -1,26 +1,32 @@
-@extends('layouts.solmaster')
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
-@section('sol-content')
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <!-- CSRF Token -->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-<!-- Inner Page Breadcrumb -->
-<section class="inner_page_breadcrumb">
-    <div class="container">
-        <div class="row">
-            <div class="col-xl-6 offset-xl-3 text-center">
-                <div class="breadcrumb_content">
-                    <h4 class="breadcrumb_title">Reset</h4>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Reset</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    <!-- <title>{{ config('app.name', 'Laravel') }}</title> -->
 
-<section class="our-log bgc-fa">
+    <!-- css file -->
+
+    <link rel="stylesheet" href="{{asset('sol-assets/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{asset('sol-assets/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('sol-assets/css/dashbord_navitaion.css')}}">
+    <!-- Responsive stylesheet -->
+    <link rel="stylesheet" href="{{asset('sol-assets/css/responsive.css')}}">
+    <!-- Title -->
+    <title>Solmax Group</title>
+    <!-- Favicon -->
+    <link href="{{asset('sol-assets/images/favicon.ico')}}" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+    <link href="{{asset('sol-assets/images/favicon.ico')}}" sizes="128x128" rel="shortcut icon" />
+</head>
+
+<body class="bgc-fa">
+    <div class="wrapper">
+    <section class="our-log bgc-fa">
     <div class="container">
         <div class="row">
             <div class="col-sm-12 col-lg-6 offset-lg-3">
@@ -47,20 +53,19 @@
                                     class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label> -->
 
                                 <!-- <div class="col-md-6"> -->
-                                    <input id="email" type="email"
-                                        class="form-control @error('email') is-invalid @enderror" name="email"
-                                        value="{{ old('email') }}" required autocomplete="email" autofocus>
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror"
+                                    name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                                    @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
+                                @error('email')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
                                 <!-- </div> -->
                             </div>
-                                 <button type="submit" class="tn btn-log btn-block btn-thm2">
-                                        {{ __('Send Password Reset Link') }}
-                                    </button>
+                            <button type="submit" class="tn btn-log btn-block btn-thm2">
+                                {{ __('Send Password Reset Link') }}
+                            </button>
 
                             <!-- <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">
@@ -76,4 +81,9 @@
         </div>
     </div>
 </section>
-@endsection
+
+    </div>
+</body>
+
+</html>
+

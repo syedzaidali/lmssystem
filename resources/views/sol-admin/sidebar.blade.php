@@ -40,6 +40,7 @@
                     <li><a href="{{route('childcategories.index')}}"><span class="flaticon-add-contact"></span> Add
                             Child Categories</a></li>
                     <li><a href="{{route('form')}}"><span class="flaticon-add-contact"></span> Form</a></li>
+                    <li><a href="{{route('cousre-create')}}"><span class="flaticon-add-contact"></span> Add Course </a></li>
                 </ul>
                 <h4>Account</h4>
                 <ul>

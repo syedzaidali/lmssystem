@@ -44,10 +44,19 @@ Route::get('/categoies/status/{id}', 'CategoryController@status')->name('categoi
 // form
 Route::get('/form', 'CategoryController@form')->name('form');
 
+// Categoires
 Route::resource('categories','CategoryController');
 Route::resource('subcategories','SubCatehoryController');
 Route::resource('childcategories','ChildCatehoryController');
 
+// my Course
+
+Route::get('/cousre/create', 'CourseController@create')->name('cousre-create');
+Route::post('/cousre/store', 'CourseController@store')->name('cousre-store');
+Route::get('/cousre/edit/{id}', 'CourseController@edit')->name('cousre-edit');
+Route::post('/cousre/update', 'CourseController@update')->name('cousre-update');
+Route::get('/get-categories-by-sub_categories', 'CourseController@getSubCat')->name('get-categories-by-sub_categories');
+Route::get('/get-sub_categories-by-child_categories','CourseController@getChildCat')->name('get-sub_categories-by-child_categories');
 
 
 

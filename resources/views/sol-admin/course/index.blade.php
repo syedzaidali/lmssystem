@@ -70,6 +70,17 @@
                                                         </form>
                                                     </div>
                                                 </li>
+                                                <li class="list-inline-item">
+                                                    <div class="candidate_revew_search_box course fn-520">
+                                                        <form class="form-inline my-2 my-lg-0">
+                                                            <input class="form-control mr-sm-2" type="search"
+                                                                placeholder="Search our instructors"
+                                                                aria-label="Search">
+                                                            <button class="btn my-2 my-sm-0" type="submit"><span
+                                                                    class="flaticon-magnifying-glass"></span></button>
+                                                        </form>
+                                                    </div>
+                                                </li>
                                             </ul>
                                         </div>
                                     </div>

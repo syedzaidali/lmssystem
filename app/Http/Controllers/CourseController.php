@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\ChildCatehory;
 use App\Course;
+use App\SubCatehory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -24,7 +28,11 @@ class CourseController extends Controller
      */
     public function create()
     {
-        //
+
+
+
+        $categories = Category::where('status',1)->get();
+        return view('sol-admin.course.create',compact('categories'));
     }
 
     /**
@@ -33,9 +41,32 @@ class CourseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+
+    public function getSubCat(Request $request)
+    {
+        $data['sub_categories'] = SubCatehory::where('categories_id', $request->categories_id)->get(["id", "name"]);
+        return response()->json($data);
+    }
+
+    public function getChildCat(Request $request)
+    {
+        $data['child_categories'] = ChildCatehory::where('sub_categories_id', $request->sub_categories_id)->get(["id", "name"]);
+        return response()->json($data);
+    }
+
     public function store(Request $request)
     {
-        //
+        $input = $request->except('_token');
+        $userId = Auth::id();
+        $input['users_id'] = $userId;
+        $data = new Course();
+
+
+        $data->fill($input)->save();
+
+        // return response()->json(['success'=>'Course saved successfully.']);
+        $categories = Category::where('status',1)->get();
+        return view('sol-admin.course.create',compact('categories'));
     }
 
     /**
@@ -67,9 +98,19 @@ class CourseController extends Controller
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Course $course)
+    public function update(Request $request)
     {
-        //
+
+        $data = Course::findOrFail($request->id);
+        $input = $request->all();
+
+        $input = $request->except('_token');
+
+
+        $data->update($input);
+
+
+        return view('admin.setup.programs.index');
     }
 
     /**

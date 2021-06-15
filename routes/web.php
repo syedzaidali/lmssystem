@@ -49,6 +49,9 @@ Route::resource('categories','CategoryController');
 Route::resource('subcategories','SubCatehoryController');
 Route::resource('childcategories','ChildCatehoryController');
 
+// Testimonial
+Route::resource('testimonial','TestimonialController');
+
 // my Course
 
 Route::get('/cousre/create', 'CourseController@create')->name('cousre-create');

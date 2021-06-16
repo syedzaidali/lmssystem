@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use DataTables;
 use Qs;
+use Validator;
 
 
 class TestimonialController extends Controller
@@ -57,54 +58,56 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
-      
-   
-        // $testimonial = new Testimonial;
-        // $testimonial->description = $request->description;
-        // $testimonial->name = $request->name;
-        // $testimonial->heading = $request->heading;
-        // $testimonial->photo = $request->photo;
-        // $testimonial->save();
-        // $data = $request->only(['name', 'description','heading','photo']);
-        // dd($request->photo);
-      
         // if($request->has('photo')) {
-        //    dd('asa');.
+         
         
-            $request->input('name');
-            Testimonial::updateOrCreate(
-                ['id' => $request->product_id],
-                ['name' => $request->name,
-                 'heading' => $request->heading,
-                 'photo' => $request->photo,
-                 'description' => $request->description,
-                 ]);
+            // $request->input('name');
+            // Testimonial::updateOrCreate(
+            //     ['id' => $request->product_id],
+            //     ['name' => $request->name,
+            //      'heading' => $request->heading,
+            //      'photo' => $request->photo,
+            //      'description' => $request->description,
+            //      ]);
 
         // return response()->json(['success'=>'Category saved successfully.']);
 
-        // $destinationPath = storage_path( 'app/public/' );
-        // $file = $request->photo;
-        // $fileName = time() . '.'.$file->clientExtension();
-        // $file->move( $destinationPath, $fileName );
-        // $request->save();
-        // return response()->json(['success'=>'Category saved successfully.']);
-    //    }
-            //    $data = $request->only(['name', 'description','heading','photo']);
-            //     if($request->hasFile('photo')) {
-            //         $photo = $request->file('photo');
-            //         $f = Qs::getFileMetaData($photo);
-            //         $f['name'] = $photo->getClientOriginalName();
-            //         $f['path'] = $photo->storeAs(Qs::getTestimonialUploadPath('testimonial'), $f['name']);
-
-            // //            $data['image'] = asset('storage/' . $f['path']);
-            //         $data['image'] = $f['path'];
+   
 
 
-            //         $data['image'] =  $f['path'];
 
-            //     }
-            //     $this->webfront->createTestimonial($data);
-            //     return redirect()->back();
+        $rules = [
+            'photo'=> 'required|mimes:jpeg,jpg,png,svg',
+            ];
+           
+         $validator = Validator::make($request->all(), $rules);
+        
+         if ($validator->fails()) {
+           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+         }
+         //--- Validation Section Ends
+ 
+         //--- Logic Section
+         $data = new Testimonial();
+         $input = $request->all();
+        
+         if ($file = $request->has('photo')) 
+          {      
+            // $file = $request->file('photo');
+            
+             $name = time().$file->getClientOriginalName();
+             
+             $file->move('sol-assets/images/adminpics',$name);           
+             $input['photo'] = $name;
+             
+             dd($request);
+         } 
+         $data->fill($input)->save();
+         //--- Logic Section Ends
+ 
+         //--- Redirect Section        
+         $msg = 'New Data Added Successfully.';
+         return response()->json($msg);  
     }
 
     /**

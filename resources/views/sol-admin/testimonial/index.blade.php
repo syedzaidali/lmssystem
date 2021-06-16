@@ -1,8 +1,8 @@
-@extends('layouts.soladmin')
+@extends('layouts.crud-master')
 
 @section('sol-style')
-<meta name="csrf-token" content="{{ csrf_token() }}">
 
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @endsection
 @section('sol-content')
@@ -57,6 +57,7 @@
             </div>
             <div class="modal-body">
                 <form id="testimonialForm" name="testimonialForm" class="form-horizontal" enctype="multipart/form-data">
+                @csrf
                     <input type="hidden" name="product_id" id="product_id">
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label">Name</label>
@@ -77,8 +78,8 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Photo</label>
                         <div class="col-sm-12">
-                            <input type="file" id="photo" name="photo" multiple   required="" class="form-control">
-                            <input type="hidden" id="_test_image" name="photo" value=""  class="form-control">
+                            <input type="file" id="photo" name="photo[]" multiple   required="" class="form-control">
+                            <input type="hidden"  id="_test_image" name="photo[]" value="" multiple  class="form-control">
                         </div>
                     </div>
                     <div class="form-group">
@@ -144,10 +145,10 @@ $(function() {
             },
             {
                 data: 'photo',
-                name: 'photo',
-                render: function( data, type, full, meta ) {
-                        return "<img src=\"/path/" + data + "\" height=\"50\"/>";
-                    }
+                name: 'photo'
+                // render: function( data, type, full, meta ) {
+                //         return "<img src=\"/path/" + data + "\" height=\"50\"/>";
+                //     }
             },
             {
                 data: 'action',
@@ -185,32 +186,18 @@ $(function() {
     $('#saveBtn').click(function(e) {
         e.preventDefault();
         $(this).html('Sending..');
-        // var data=[];
+       
         var a = $('#photo')[0].files[0]['name']
          $('#_test_image').val(a);
-        // var b = $('#description').val();
-        // var c = $('#name').val();
-        // var d = $('#heading').val()
-        // data.push(a,b,c,d);
-            // $('#photo').change(function() {
-            // var data = $('#photo').val();
-            // alert(data);
-            // var a= $('#_test_image').val(data);
-            // alert(a);
-        // });
+      
         $.ajax({
             data: $('#testimonialForm').serialize(),
             url: "{{ route('testimonial.store') }}",
             type: "POST",
             dataType: 'json',
-            // data: "data="+data,
-            // data: { "file="+file, locale: 'en-US' },
-            // data: $("#testimonialForm").serializeArray(),
-            // data: "data",
-            // cache: false,
 
             success: function(data) {
-                aler('success');
+                alert('success');
                 $('#testimonialForm').trigger("reset");
                 $('#ajaxModel').modal('hide');
                 table.draw();

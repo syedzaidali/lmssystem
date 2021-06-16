@@ -1,9 +1,6 @@
-@section('sol-style')
-<style>
+<!-- @section('sol-style')
 
-</style>
-
-@endsection
+@endsection -->
 
 <section class="dashboard_sidebar dn-1199">
     <div class="dashboard_sidebars">
@@ -27,18 +24,13 @@
                     <li><a href=""><span class="flaticon-like"></span> Bookmarks</a></li>
                     <li><a href="{{route('listing')}}"><span class="flaticon-add-contact"></span> Add listing</a></li>
 
-                    <!-- <li> <a class="dropdowm_menu"> <span class="flaticon-add-contact"></span> Catagoiry</a></li>
-                    <li class="dropdown-menu1 _menu"><a href="#"><span class="flaticon-add-contact"></span> HTML</a></li>
-                    <li class="dropdown-menu1 _menu"><a href="#"><span class="flaticon-add-contact"></span>CSS</a></li>
-                    <li class="dropdown-menu1 _menu"><a href="#"><span class="flaticon-add-contact"></span>JavaScript</a></li> -->
-
-
-                    <li><a href="{{route('categories.index')}}"><span class="flaticon-add-contact"></span> Add
-                            Categories</a></li>
-                    <li><a href="{{route('subcategories.index')}}"><span class="flaticon-add-contact"></span> Add Sub
-                            Categories</a></li>
-                    <li><a href="{{route('childcategories.index')}}"><span class="flaticon-add-contact"></span> Add
-                            Child Categories</a></li>
+                    <li> <a class="dropdown_menu" style="cursor: pointer"> <span class="flaticon-add-contact"></span> Category</a></li>
+                        <ul class="_menu" style="display: none !important;">
+                            <li><a href="{{route('categories.index')}}"><span class="flaticon-add-contact"></span> Add Categories</a></li>
+                            <li><a href="{{route('subcategories.index')}}"><span class="flaticon-add-contact"></span> Add SubCategories</a></li>
+                            <li><a href="{{route('childcategories.index')}}"><span class="flaticon-add-contact"></span> Add Child Categories</a></li>
+                        </ul>
+                    <li><a href="{{route('testimonial.index')}}"><span class="flaticon-add-contact"></span>Tastimonial </a></li>
                     <li><a href="{{route('form')}}"><span class="flaticon-add-contact"></span> Form</a></li>
                     <li><a href="{{route('cousre-create')}}"><span class="flaticon-add-contact"></span> Add Course </a></li>
                 </ul>

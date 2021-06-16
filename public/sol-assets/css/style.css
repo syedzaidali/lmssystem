@@ -11992,9 +11992,9 @@ textarea.form-control{
   color: #ffffff;
   font-size: 50px;
 }
-/* .dropdown-menu1 {
-  display: none;
+._menu{
+  display: none !important;
 }
-.show{
-  display: block !important;
-} */
+.dropdown_menu{
+  cursor: pointer !important;
+}

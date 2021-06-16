@@ -438,11 +438,12 @@
     <!-- Wrapper End -->
 
 
-
+    @yield('sol-script')
 
     <script type="text/javascript" src="{{asset('sol-assets/js/jquery-3.3.1.js')}}"></script>
     <script type="text/javascript" src="{{asset('sol-assets/js/jquery-migrate-3.0.0.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('sol-assets/js/popper.min.js')}}"></script>
+
 
     <script src="{{asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js')}}">
     </script>
@@ -472,7 +473,7 @@
     <script type="text/javascript" src="{{asset('sol-assets/js/script.js')}}"></script>
 
 
-    @yield('sol-script')
+
     <!-- <script>
     $(function() {
         $('.dropdowm_menu').click(function() {

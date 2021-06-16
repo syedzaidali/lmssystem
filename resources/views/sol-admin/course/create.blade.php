@@ -43,8 +43,6 @@
                                 </div>
                             </div>
 
-
-
                             <div class="row">
                                 <div class="col-lg-6 col-md-6 col-sm-12">
                                     <div class="my_profile_select_box tt_video form-group">
@@ -75,16 +73,31 @@
                                         <input type="file" id="photo" class="form-control" name="photo">
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-md-12 col-sm-12">
+                                {{-- <div class="col-lg-6 col-md-12 col-sm-12">
                                     <div class="my_profile_setting_input form-group">
                                         <label for="url">Course Video</label>
 
                                         <input type="file" name="video" id="video" class="form-control">
 
                                     </div>
-                                </div>
+                                </div> --}}
 
                             </div>
+
+                                <label for="">Course Video</label><br>
+                                <div class="">
+                                    <input type="hidden" name="phaseCenterId" id="centerId" placeholder="Enter your Name"
+                                        class="form-control name_list centerId" />
+                                    <table class="table table-bordered" id="dynamic_field">
+                                        <tr>
+                                            <td><button type="button" name="add" id="add" class="btn btn-success">Add Video
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </table>
+
+                                </div>
+
 
                             <div class="row">
                                 <div class="col-lg-12">
@@ -144,6 +157,12 @@
 
                                 </div>
                             </div>
+
+
+
+
+
+
                         </form>
 
                     </div>
@@ -159,60 +178,102 @@
 @endsection
 
 @section('sol-script')
+    <<script type="text/javascript" src="{{ asset('sol-assets/js/jquery-3.3.1.js') }}">
+        </script>
+        <script type="text/javascript" src="{{ asset('sol-assets/js/jquery-migrate-3.0.0.min.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('sol-assets/js/popper.min.js') }}"></script>
 
-    <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
-    <script>
-        CKEDITOR.replace('summary-ckeditor');
 
-        $(document).ready(function() {
+        <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js') }}">
+        </script>
+        <script src="{{ asset('https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js') }}"></script>
+        <script src="//cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+        <script>
+            CKEDITOR.replace('summary-ckeditor');
 
-            $('#categories_id').on('change', function() {
-                var categories_id = this.value;
+            $(document).ready(function() {
 
-                $("#sub_categories_id").html('');
-                $.ajax({
-                    url: "{{ url('get-categories-by-sub_categories') }}",
-                    type: "get",
-                    data: {
-                        categories_id: categories_id,
-                    },
-                    dataType: 'json',
-                    success: function(result) {
-                        $('#sub_categories_id').append(
-                            '<option value="">Select Sub Categories</option>');
-                        $.each(result.sub_categories, function(key, value) {
-                            $("#sub_categories_id").append('<option value="' + value
-                                .id + '">' +
-                                value.name + '</option>');
-                        });
-                        $('#child_categories_id').html(
-                            '<option value="">Select Sub Categories First</option>');
-                    }
+                $('#categories_id').on('change', function() {
+                    var categories_id = this.value;
+
+                    $("#sub_categories_id").html('');
+                    $.ajax({
+                        url: "{{ url('get-categories-by-sub_categories') }}",
+                        type: "get",
+                        data: {
+                            categories_id: categories_id,
+                        },
+                        dataType: 'json',
+                        success: function(result) {
+                            $('#sub_categories_id').append(
+                                '<option value="">Select Sub Categories</option>');
+                            $.each(result.sub_categories, function(key, value) {
+                                $("#sub_categories_id").append('<option value="' + value
+                                    .id + '">' +
+                                    value.name + '</option>');
+                            });
+                            $('#child_categories_id').html(
+                                '<option value="">Select Sub Categories First</option>');
+                        }
+                    });
+                });
+                $('#sub_categories_id').on('change', function() {
+                    var sub_categories_id = this.value;
+
+                    $("#child_categories_id").html('');
+                    $.ajax({
+                        url: "{{ url('get-sub_categories-by-child_categories') }}",
+                        type: "get",
+                        data: {
+                            sub_categories_id: sub_categories_id,
+                        },
+                        dataType: 'json',
+                        success: function(result) {
+                            $('#child_categories_id').append(
+                                '<option value="">Select Sub Topic</option>');
+                            $.each(result.child_categories, function(key, value) {
+                                $("#child_categories_id").append('<option value="' +
+                                    value
+                                    .id + '">' +
+                                    value.name + '</option>');
+                            });
+                        }
+                    });
                 });
             });
-            $('#sub_categories_id').on('change', function() {
-                var sub_categories_id = this.value;
 
-                $("#child_categories_id").html('');
-                $.ajax({
-                    url: "{{ url('get-sub_categories-by-child_categories') }}",
-                    type: "get",
-                    data: {
-                        sub_categories_id: sub_categories_id,
-                    },
-                    dataType: 'json',
-                    success: function(result) {
-                        $('#child_categories_id').append(
-                            '<option value="">Select Sub Topic</option>');
-                        $.each(result.child_categories, function(key, value) {
-                            $("#child_categories_id").append('<option value="' + value
-                                .id + '">' +
-                                value.name + '</option>');
-                        });
+        </script>
+        <script type="text/javascript">
+            $(document).ready(function() {
+                var i = 1;
+                $('#add').click(function() {
+                    i++;
+                    $('#dynamic_field').append('<tr id="row' + i +
+                        '" class="dynamic-added"><td><input type="file" name="name[]" placeholder="Enter your Name" class="form-control name_list col-lg-6 blockId" /></td><td><input type="text" name="lacture[]" placeholder="Enter Lecture No" class="form-control name_list col-lg-6 blockId" /><td><td><input type="hidden" name="id[]" placeholder="Enter Capacity" class="form-control name_list col-lg-6 blockId" /><button type="button" name="remove" id="' +
+                        i + '" class="btn btn-danger btn_remove">X</button></td></tr>');
+                });
+                $(document).on('click', '.btn_remove', function() {
+                    var button_id = $(this).attr("id");
+                    $('#row' + button_id + '').remove();
+                });
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     }
                 });
+                //   $("#form").submit(function(e){
+                //             e.preventDefault();
+                //         });
+                function printErrorMsg(msg) {
+                    $(".print-error-msg").find("ul").html('');
+                    $(".print-error-msg").css('display', 'block');
+                    $(".print-success-msg").css('display', 'none');
+                    $(".print-error-msg").fadeIn("slow").fadeOut(5000);
+                    $.each(msg, function(key, value) {
+                        $(".print-error-msg").find("ul").append('<li>' + value + '</li>');
+                    });
+                }
             });
-        });
 
-    </script>
-@endsection
+        </script>
+    @endsection

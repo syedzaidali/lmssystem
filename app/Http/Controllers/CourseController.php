@@ -61,7 +61,6 @@ class CourseController extends Controller
         $input['users_id'] = $userId;
         $data = new Course();
 
-
         $data->fill($input)->save();
 
         // return response()->json(['success'=>'Course saved successfully.']);

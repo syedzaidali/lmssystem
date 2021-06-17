@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
-                            <h4 class="title float-left">Testimonial</h4>
+                            <h4 class="title float-left">News Letter</h4>
                             <ol class="breadcrumb float-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
@@ -24,7 +24,7 @@
                     <div class="col-lg-12 my-3" style="text-align:end;">
                         <a class="btn btn-transparent divider-btn" href="javascript:void(0)" id="createNewProduct"
                             style="border: 2px solid #2441e7;">
-                            Add Banner Slider
+                            Add News Letter
                         </a>
                     </div>
                 </div>
@@ -34,8 +34,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Sub Heading</th>
                             <th>Heading</th>
+                            <th>Location</th>
                             <th>Photo</th>
                             <th width="280px">Action</th>
                         </tr>
@@ -55,21 +55,28 @@
                 <h4 class="modal-title" id="modelHeading"></h4>
             </div>
             <div class="modal-body">
-                <form id="sliderForm" name="sliderForm" class="form-horizontal" enctype="multipart/form-data">
+                <form id="newsletterrForm" name="newsletter" class="form-horizontal" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="product_id" id="product_id">
                     <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">Sub Heading</label>
+                        <label for="name" class="col-sm-2 control-label">Heading</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="name" name="sub_heading"
-                                placeholder="Enter Sub Heading" value="" maxlength="50" required="">
+                            <input type="text" class="form-control" id="name" name="heading"
+                                placeholder="Enter Heading" value="" maxlength="50" required="">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Heading</label>
+                        <label class="col-sm-2 control-label">Location</label>
                         <div class="col-sm-12">
-                            <input type="text" id="heading" name="heading" required="" placeholder="Enter Heading"
+                            <input type="text" id="location" name="location" required="" placeholder="Enter location"
+                                class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Date</label>
+                        <div class="col-sm-12">
+                            <input type="date" id="date" name="date" required="" placeholder="Enter location"
                                 class="form-control">
                         </div>
                     </div>
@@ -113,24 +120,25 @@ $(function() {
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('slider.index') }}",
+        ajax: "{{ route('newsletter.index') }}",
         columns: [{
                 data: 'DT_RowIndex',
                 name: 'DT_RowIndex'
             },
-            {
-                data: 'sub_heading',
-                name: 'sub_heading'
-            },
+          
             {
                 data: 'heading',
                 name: 'heading'
             },
             {
+                data: 'location',
+                name: 'location'
+            },
+            {
                 data: 'photo',
                 name: 'photo',
                 render: function(data, type, full, meta) {
-                    return "<img src=\"sol-assets/images/admin-slider/" + data +
+                    return "<img src=\"sol-assets/images/admin-newsletter/" + data +
                         "\" height=\"90\"/>";
                 }
             },
@@ -147,20 +155,20 @@ $(function() {
 
         $('#saveBtn').val("create-product");
         $('#product_id').val('');
-        $('#sliderForm').trigger("reset");
-        $('#modelHeading').html("Add slider");
+        $('#newsletter').trigger("reset");
+        $('#modelHeading').html("Add News Latter");
         $('#ajaxModel').modal('show');
     });
 
     $('body').on('click', '.editProduct', function() {
         var product_id = $(this).data('id');
-        $.get("{{route('slider.index') }}" + '/' + product_id + '/edit', function(data) {
+        $.get("{{route('newsletter.index') }}" + '/' + product_id + '/edit', function(data) {
             $('#modelHeading').html("Edit Product");
             $('#saveBtn').val("edit-user");
             $('#ajaxModel').modal('show');
             $('#product_id').val(data.id);
-            $('#name').val(data.sub_heading);
-            $('#heading').val(data.heading);
+            $('#name').val(data.heading);
+            $('#location').val(data.location);
             $('#photo').val(data.photo);
             // $('#status').val(data.status);
         })
@@ -171,7 +179,7 @@ $(function() {
         $(this).html('Sending..');
 
         // Get form
-        var form = $('#sliderForm')[0];
+        var form = $('#newsletter')[0];
 
         // Create an FormData object 
         var data = new FormData(form);
@@ -181,7 +189,7 @@ $(function() {
         });
 
         $.ajax({
-            url: "{{route('slider.store')}}",
+            url: "{{route('newsletter.store')}}",
             data: data,
             cache: false,
             contentType: false,
@@ -191,7 +199,7 @@ $(function() {
 
             success: function(data) {
                 alert('success');
-                $('#sliderForm').trigger("reset");
+                $('#newsletter').trigger("reset");
                 $('#ajaxModel').modal('hide');
                 table.draw();
 
@@ -204,44 +212,6 @@ $(function() {
         });
     });
 
-
-    // $('#saveBtn').click(function(e) {
-    //     e.preventDefault();
-    //     $(this).html('Sending..');
-
-    //     // Get form
-    //     var form = $('#sliderForm')[0];
-
-    //     // Create an FormData object 
-    //     var data = new FormData(form);
-
-    //     jQuery.each(jQuery('#photo')[0].files, function(i, file) {
-    //         data.append('file-' + i, file);
-    //     });
-
-    //     $.ajax({
-    //         url: "{{url('slider/update')}}",
-    //         data: data,
-    //         cache: false,
-    //         contentType: false,
-    //         processData: false,
-    //         method: 'PUT',
-
-
-    //         success: function(data) {
-    //             alert('success');
-    //             $('#testimonialForm').trigger("reset");
-    //             $('#ajaxModel').modal('hide');
-    //             table.draw();
-
-    //         },
-    //         error: function(data) {
-
-    //             console.log('Error:', data);
-    //             $('#saveBtn').html('Save Changes');
-    //         }
-    //     });
-    // });
     $('body').on('click', '.deleteProduct', function() {
 
         var product_id = $(this).data("id");
@@ -249,7 +219,7 @@ $(function() {
 
         $.ajax({
             type: "DELETE",
-            url: "{{ route('slider.store') }}" + '/' + product_id,
+            url: "{{ route('newsletter.store') }}" + '/' + product_id,
             success: function(data) {
                 table.draw();
             },

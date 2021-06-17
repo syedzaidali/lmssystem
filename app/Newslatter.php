@@ -4,10 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class slider extends Model
+class Newslatter extends Model
 {
     protected $fillable = [
-        'sub_heading', 'heading','photo'
+        'heading','location','photo'
     ];
 }
-

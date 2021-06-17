@@ -54,6 +54,8 @@ Route::resource('testimonial','TestimonialController');
 
 // Slider
 Route::resource('slider','SliderController');
+// NewsLetter
+Route::resource('newsletter','NewslatterController');
 
 // my Course
 

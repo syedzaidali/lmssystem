@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\slider;
+use App\Newslatter;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use DataTables;
 use Qs;
 use Validator;
 
-class SliderController extends Controller
+
+class NewslatterController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request  $request)
+    public function index(Request $request)
     {
+        
         if ($request->ajax()) {
-            $data = slider::latest()->get();
+            $data = Newslatter::latest()->get();
             return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('action', function($row){
@@ -31,7 +32,7 @@ class SliderController extends Controller
                             return $btn;
                     })
                     ->addcolumn('image',function($data){
-                        $url= asset('sol-assets/images/admin-slider/'.$data->photo);
+                        $url= asset('sol-assets/images/admin-newsletter/'.$data->photo);
                         return '<img src="'.$url.'" border="0" width="40" class="img-rounded" align="center" />';
                     })
                    
@@ -40,7 +41,7 @@ class SliderController extends Controller
                    
         }
    
-        return view('sol-admin.webcms.slider.index');
+        return view('sol-admin.webcms.newsletter.index');
     }
 
     /**
@@ -61,10 +62,8 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-
-
         //  dd($request->heading);
-        $data = new slider();
+        $data = new Newslatter();
         $input = $request->all();
        
         if ($file = $request->has('photo')) 
@@ -92,10 +91,10 @@ class SliderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\slider  $slider
+     * @param  \App\Newslatter  $newslatter
      * @return \Illuminate\Http\Response
      */
-    public function show(slider $slider)
+    public function show(Newslatter $newslatter)
     {
         //
     }
@@ -103,60 +102,34 @@ class SliderController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\slider  $slider
+     * @param  \App\Newslatter  $newslatter
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Newslatter $newslatter)
     {
-        $slider = slider::find($id);
-        return response()->json($slider);
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\slider  $slider
+     * @param  \App\Newslatter  $newslatter
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,$id)
+    public function update(Request $request, Newslatter $newslatter)
     {
-        //    dd($request);
-          $data = slider::findOrfail($id);
-          $input = $request->all();
-         
-          if ($file = $request->has('photo')) 
-           {      
-             $file = $request->file('photo');
-             
-             //  dd($request->file('photo'));
-              $name =time(). $file->getClientOriginalName();
-              
-              $file->move('sol-assets/images/admin-slider',$name);           
-              $input['photo'] = $name;
-              
-              
-          } 
-  
-          dd($request);
-          $data->update($input);
-          //--- Logic Section Ends
-  
-          //--- Redirect Section        
-          $msg = 'New Data Added Successfully.';
-          return response()->json($msg);  
+        //
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\slider  $slider
+     * @param  \App\Newslatter  $newslatter
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Newslatter $newslatter)
     {
-        slider::find($id)->delete();
-
-        return response()->json(['success'=>'Category deleted successfully.']);
+        //
     }
 }

@@ -198,7 +198,7 @@ $(function() {
          jQuery.each(jQuery('#photo')[0].files, function(i, file) {
             data.append('file-'+i, file);
         });
-        // alert(data);
+    
 
       
         $.ajax({

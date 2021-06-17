@@ -25,13 +25,16 @@
                     <li><a href="{{route('listing')}}"><span class="flaticon-add-contact"></span> Add listing</a></li>
 
                     <li> <a class="dropdown_menu" style="cursor: pointer"> <span class="flaticon-add-contact"></span> Category</a></li>
-                        <ul class="_menu" style="display: none !important;">
-                            <li><a href="{{route('categories.index')}}"><span class="flaticon-add-contact"></span> Add Categories</a></li>
-                            <li><a href="{{route('subcategories.index')}}"><span class="flaticon-add-contact"></span> Add SubCategories</a></li>
-                            <li><a href="{{route('childcategories.index')}}"><span class="flaticon-add-contact"></span> Add Child Categories</a></li>
-                        </ul>
+                        <!-- <ul class="_menu" style="display: none !important;">
+                        
+                        </ul> -->
+                        
+                    <li><a href="{{route('categories.index')}}"><span class="flaticon-add-contact"></span> Add Categories</a></li>
+                    <li><a href="{{route('subcategories.index')}}"><span class="flaticon-add-contact"></span> Add SubCategories</a></li>
+                    <li><a href="{{route('childcategories.index')}}"><span class="flaticon-add-contact"></span> Add Child Categories</a></li>
                     <li><a href="{{route('testimonial.index')}}"><span class="flaticon-add-contact"></span>Testimonial </a></li>
                     <li><a href="{{route('slider.index')}}"><span class="flaticon-add-contact"></span>Banner Slider </a></li>
+                    <li><a href="{{route('newsletter.index')}}"><span class="flaticon-add-contact"></span>News Letter </a></li>
                     <li><a href="{{route('form')}}"><span class="flaticon-add-contact"></span> Form</a></li>
                     <li><a href="{{route('cousre-create')}}"><span class="flaticon-add-contact"></span> Add Course </a></li>
                 </ul>

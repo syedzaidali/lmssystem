@@ -64,10 +64,6 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
-        
-
-   
-   
 
         // $rules = [
         //     'photo'=> 'required|mimes:png,svg',

@@ -52,6 +52,9 @@ Route::resource('childcategories','ChildCatehoryController');
 // Testimonial
 Route::resource('testimonial','TestimonialController');
 
+// Slider
+Route::resource('slider','SliderController');
+
 // my Course
 
 Route::get('/cousre/create', 'CourseController@create')->name('cousre-create');

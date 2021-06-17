@@ -30,7 +30,8 @@
                             <li><a href="{{route('subcategories.index')}}"><span class="flaticon-add-contact"></span> Add SubCategories</a></li>
                             <li><a href="{{route('childcategories.index')}}"><span class="flaticon-add-contact"></span> Add Child Categories</a></li>
                         </ul>
-                    <li><a href="{{route('testimonial.index')}}"><span class="flaticon-add-contact"></span>Tastimonial </a></li>
+                    <li><a href="{{route('testimonial.index')}}"><span class="flaticon-add-contact"></span>Testimonial </a></li>
+                    <li><a href="{{route('slider.index')}}"><span class="flaticon-add-contact"></span>Banner Slider </a></li>
                     <li><a href="{{route('form')}}"><span class="flaticon-add-contact"></span> Form</a></li>
                     <li><a href="{{route('cousre-create')}}"><span class="flaticon-add-contact"></span> Add Course </a></li>
                 </ul>

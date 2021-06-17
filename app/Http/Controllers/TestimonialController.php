@@ -33,11 +33,17 @@ class TestimonialController extends Controller
 
                             return $btn;
                     })
-                    ->rawColumns(['action'])
+                    ->addcolumn('image',function($data){
+                        $url= asset('sol-assets/images/admin-testimonial/'.$data->photo);
+                        return '<img src="'.$url.'" border="0" width="40" class="img-rounded" align="center" />';
+                    })
+                   
+                    ->rawColumns(['action', 'image'])
                     ->make(true);
+                   
         }
-
-        return view('sol-admin.testimonial.index');
+   
+        return view('sol-admin.webcms.testimonial.index');
     }
 
     /**
@@ -58,50 +64,41 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
-        // if($request->has('photo')) {
-         
         
-            // $request->input('name');
-            // Testimonial::updateOrCreate(
-            //     ['id' => $request->product_id],
-            //     ['name' => $request->name,
-            //      'heading' => $request->heading,
-            //      'photo' => $request->photo,
-            //      'description' => $request->description,
-            //      ]);
-
-        // return response()->json(['success'=>'Category saved successfully.']);
 
    
+   
 
-
-
-        $rules = [
-            'photo'=> 'required|mimes:jpeg,jpg,png,svg',
-            ];
+        // $rules = [
+        //     'photo'=> 'required|mimes:png,svg',
+        //     ];
            
-         $validator = Validator::make($request->all(), $rules);
+        //  $validator = Validator::make($request->all(), $rules);
         
-         if ($validator->fails()) {
-           return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
-         }
+        //  if ($validator->fails()) {
+        //    return response()->json(array('errors' => $validator->getMessageBag()->toArray()));
+        //  }
          //--- Validation Section Ends
  
          //--- Logic Section
          $data = new Testimonial();
          $input = $request->all();
-        
+        //  dd($request->photo);
          if ($file = $request->has('photo')) 
           {      
-            // $file = $request->file('photo');
+            $file = $request->file('photo');
             
-             $name = time().$file->getClientOriginalName();
+            //  $file = array();
+            //  dd($request->file('photo'));
+             $name =time(). $file->getClientOriginalName();
              
-             $file->move('sol-assets/images/adminpics',$name);           
+             $file->move('sol-assets/images/admin-testimonial',$name);           
              $input['photo'] = $name;
              
-             dd($request);
+             
          } 
+
+        //  dd($request);
          $data->fill($input)->save();
          //--- Logic Section Ends
  

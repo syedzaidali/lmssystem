@@ -24,7 +24,7 @@
                     <div class="col-lg-12 my-3" style="text-align:end;">
                         <a class="btn btn-transparent divider-btn" href="javascript:void(0)" id="createNewProduct"
                             style="border: 2px solid #2441e7;">
-                            Create New Categoeies
+                          Add Slider
                         </a>
                     </div>
                 </div>
@@ -34,9 +34,8 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Name</th>
+                            <th>Sub Heading</th>
                             <th>Heading</th>
-                            <th>Description</th>
                             <th>Photo</th>
                             <th width="280px">Action</th>
                         </tr>
@@ -56,13 +55,13 @@
                 <h4 class="modal-title" id="modelHeading"></h4>
             </div>
             <div class="modal-body">
-                <form id="testimonialForm" name="testimonialForm" class="form-horizontal" enctype="multipart/form-data">
+                <form id="sliderForm" name="sliderForm" class="form-horizontal" enctype="multipart/form-data">
                 @csrf
                     <input type="hidden" name="product_id" id="product_id">
                     <div class="form-group">
-                        <label for="name" class="col-sm-2 control-label">Name</label>
+                        <label for="name" class="col-sm-2 control-label">Sub Heading</label>
                         <div class="col-sm-12">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Enter Name"
+                            <input type="text" class="form-control" id="name" name="sub_heading" placeholder="Enter Sub Heading"
                                 value="" maxlength="50" required="">
                         </div>
                     </div>
@@ -78,21 +77,10 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Photo</label>
                         <div class="col-sm-12">
-                            <input type="file" id="photo" name="photo[]" multiple   required="" class="form-control">
-                            <input type="hidden"  id="_test_image" name="photo[]" value="" multiple  class="form-control">
+                            <input type="file" id="photo" name="photo" multiple   required="" class="form-control">
+                            <input type="hidden"  id="_test_image" name="photo" value="" multiple  class="form-control">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Description</label>
-                        <div class="col-sm-12">
-                            <textarea class="form-control" id="description" name="description" required=""
-                                placeholder="Enter Description" id="exampleFormControlTextarea1 description"
-                                rows="5"></textarea>
-                            <!-- <input type="text" id="description" name="description" required=""placeholder="Enter Description" class="form-control"> -->
-                            <!-- <input type="hidden" id="photo" name="photo" value="1" required="" placeholder="Enter Description" class="form-control"> -->
-                        </div>
-                    </div>
-
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-primary" id="saveBtn" value="create">Save changes
                         </button>
@@ -126,28 +114,24 @@ $(function() {
     var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('testimonial.index') }}",
+        ajax: "{{ route('slider.index') }}",
         columns: [{
                 data: 'DT_RowIndex',
                 name: 'DT_RowIndex'
             },
             {
-                data: 'name',
-                name: 'name'
+                data: 'sub_heading',
+                name: 'sub_heading'
             },
             {
                 data: 'heading',
                 name: 'heading'
             },
             {
-                data: 'description',
-                name: 'description'
-            },
-            {
                 data: 'photo',
-                name: 'photo'
+                name: 'photo',
                 // render: function( data, type, full, meta ) {
-                //         return "<img src=\"/path/" + data + "\" height=\"50\"/>";
+                //         return "<img src=\"sol-assets/images/admin-testimonial/" + data + "\" height=\"50\"/>";
                 //     }
             },
             {
@@ -163,21 +147,21 @@ $(function() {
 
         $('#saveBtn').val("create-product");
         $('#product_id').val('');
-        $('#testimonialForm').trigger("reset");
-        $('#modelHeading').html("Add Testimonial");
+        $('#sliderForm').trigger("reset");
+        $('#modelHeading').html("Add slider");
         $('#ajaxModel').modal('show');
     });
 
     $('body').on('click', '.editProduct', function() {
         var product_id = $(this).data('id');
-        $.get("{{ route('testimonial.index') }}" + '/' + product_id + '/edit', function(data) {
+        $.get("{{ route('slider.index') }}" + '/' + product_id + '/edit', function(data) {
             $('#modelHeading').html("Edit Product");
             $('#saveBtn').val("edit-user");
             $('#ajaxModel').modal('show');
             $('#product_id').val(data.id);
-            $('#name').val(data.name);
+            $('#name').val(data.sub_heading);
             $('#heading').val(data.heading);
-            $('#description').val(data.description);
+            // $('#description').val(data.description);
             $('#photo').val(data.photo);
             $('#status').val(data.status);
         })
@@ -186,15 +170,28 @@ $(function() {
     $('#saveBtn').click(function(e) {
         e.preventDefault();
         $(this).html('Sending..');
-       
-        var a = $('#photo')[0].files[0]['name']
-         $('#_test_image').val(a);
-      
+
+         // Get form
+         var form = $('#testimonialForm')[0];
+
+            // Create an FormData object 
+            var data = new FormData(form);
+
+         jQuery.each(jQuery('#photo')[0].files, function(i, file) {
+            data.append('file-'+i, file);
+        });
+  
         $.ajax({
-            data: $('#testimonialForm').serialize(),
-            url: "{{ route('testimonial.store') }}",
-            type: "POST",
-            dataType: 'json',
+             // data: $('#testimonialForm').serialize(),
+            url: "{{ route('slider.store') }}",
+            data: data,
+            // type: "POST",
+            // dataType: 'json',
+            cache: false,
+            contentType: false,
+            processData: false,
+            method: 'POST',
+
 
             success: function(data) {
                 alert('success');
@@ -218,7 +215,7 @@ $(function() {
 
         $.ajax({
             type: "DELETE",
-            url: "{{ route('testimonial.store') }}" + '/' + product_id,
+            url: "{{ route('slider.store') }}" + '/' + product_id,
             success: function(data) {
                 table.draw();
             },

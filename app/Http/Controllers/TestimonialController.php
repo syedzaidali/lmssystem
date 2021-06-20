@@ -64,6 +64,7 @@ class TestimonialController extends Controller
      */
     public function store(Request $request)
     {
+        // dd('asdsad');
 
         // $rules = [
         //     'photo'=> 'required|mimes:png,svg',
@@ -135,7 +136,30 @@ class TestimonialController extends Controller
      */
     public function update(Request $request, Testimonial $testimonial)
     {
-        //
+            // dd($request);
+         $data = slider::findOrfail($id);
+         $input = $request->all();
+        
+         if ($file = $request->has('photo')) 
+          {      
+            $file = $request->file('photo');
+            
+            //  dd($request->file('photo'));
+             $name =time(). $file->getClientOriginalName();
+             
+             $file->move('sol-assets/images/admin-testimonial',$name);     
+             $input['photo'] = $name;
+             
+             
+         } 
+ 
+        //  dd($request);
+         $data->update($input);
+         //--- Logic Section Ends
+ 
+         //--- Redirect Section        
+         $msg = 'New Data Added Successfully.';
+         return response()->json($msg);  
     }
 
     /**

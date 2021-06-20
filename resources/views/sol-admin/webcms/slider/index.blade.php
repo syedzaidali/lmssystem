@@ -14,7 +14,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <nav class="breadcrumb_widgets" aria-label="breadcrumb mb30">
-                            <h4 class="title float-left">Testimonial</h4>
+                            <h4 class="title float-left">Banner Slider</h4>
                             <ol class="breadcrumb float-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
@@ -57,6 +57,7 @@
             <div class="modal-body">
                 <form id="sliderForm" name="sliderForm" class="form-horizontal" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden"  id="actual_url" value="">
                     <input type="hidden" name="product_id" id="product_id">
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label">Sub Heading</label>
@@ -150,6 +151,7 @@ $(function() {
         $('#sliderForm').trigger("reset");
         $('#modelHeading').html("Add slider");
         $('#ajaxModel').modal('show');
+        $('#actual_url').val('add');
     });
 
     $('body').on('click', '.editProduct', function() {
@@ -157,6 +159,7 @@ $(function() {
         $.get("{{route('slider.index') }}" + '/' + product_id + '/edit', function(data) {
             $('#modelHeading').html("Edit Product");
             $('#saveBtn').val("edit-user");
+            $('#actual_url').val("edit");
             $('#ajaxModel').modal('show');
             $('#product_id').val(data.id);
             $('#name').val(data.sub_heading);
@@ -175,13 +178,23 @@ $(function() {
 
         // Create an FormData object 
         var data = new FormData(form);
+          var actural_url = '';
+            if($('#actual_url').val() == 'add')
+            {
+                 actural_url= "{{ route('slider.store') }}"
+            }
+            if($('#actual_url').val() == 'edit')
+            {
+                 actural_url= "{{ route('slider-update') }}"
+                alert('succces');
+            }
 
         jQuery.each(jQuery('#photo')[0].files, function(i, file) {
             data.append('file-' + i, file);
         });
 
         $.ajax({
-            url: "{{route('slider.store')}}",
+            url: actural_url,
             data: data,
             cache: false,
             contentType: false,

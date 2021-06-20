@@ -51,11 +51,14 @@ Route::resource('childcategories','ChildCatehoryController');
 
 // Testimonial
 Route::resource('testimonial','TestimonialController');
+Route::post('/testimonial/update', 'TestimonialController@update')->name('testimonial-update');
 
 // Slider
 Route::resource('slider','SliderController');
+Route::post('/slider/update', 'SliderController@update')->name('slider-update');
 // NewsLetter
 Route::resource('newsletter','NewslatterController');
+Route::post('/newsletter/update', 'NewslatterController@update')->name('newsletter-update');
 
 // my Course
 

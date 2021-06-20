@@ -58,7 +58,9 @@
             <div class="modal-body">
                 <form id="testimonialForm" name="testimonialForm" class="form-horizontal" enctype="multipart/form-data">
                 @csrf
+                @method('POST')
                     <input type="hidden" name="product_id" id="product_id">
+                    <input type="hidden"  id="actual_url" value="">
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-12">
@@ -88,8 +90,6 @@
                             <textarea class="form-control" id="description" name="description" required=""
                                 placeholder="Enter Description" id="exampleFormControlTextarea1 description"
                                 rows="5"></textarea>
-                            <!-- <input type="text" id="description" name="description" required=""placeholder="Enter Description" class="form-control"> -->
-                            <!-- <input type="hidden" id="photo" name="photo" value="1" required="" placeholder="Enter Description" class="form-control"> -->
                         </div>
                     </div>
 
@@ -166,6 +166,7 @@ $(function() {
         $('#testimonialForm').trigger("reset");
         $('#modelHeading').html("Add Testimonial");
         $('#ajaxModel').modal('show');
+        $('#actual_url').val('add');
     });
 
     $('body').on('click', '.editProduct', function() {
@@ -173,6 +174,7 @@ $(function() {
         $.get("{{ route('testimonial.index') }}" + '/' + product_id + '/edit', function(data) {
             $('#modelHeading').html("Edit Product");
             $('#saveBtn').val("edit-user");
+            $('#actual_url').val("edit");
             $('#ajaxModel').modal('show');
             $('#product_id').val(data.id);
             $('#name').val(data.name);
@@ -180,6 +182,7 @@ $(function() {
             $('#description').val(data.description);
             $('#photo').val(data.photo);
             $('#status').val(data.status);
+          
         })
     });
 
@@ -191,10 +194,19 @@ $(function() {
          var form = $('#testimonialForm')[0];
 
             // Create an FormData object 
+
             var data = new FormData(form);
-       
-        // var a = $('#photo')[0].files[0]['name']
-        //  $('#_test_image').val(a);
+            var actural_url = '';
+            if($('#actual_url').val() == 'add')
+            {
+                 actural_url= "{{ route('testimonial.store') }}"
+            }
+            if($('#actual_url').val() == 'edit')
+            {
+                 actural_url= "{{ route('testimonial-update') }}"
+                alert('succces');
+            }
+
          jQuery.each(jQuery('#photo')[0].files, function(i, file) {
             data.append('file-'+i, file);
         });
@@ -202,15 +214,13 @@ $(function() {
 
       
         $.ajax({
-            // data: $('#testimonialForm').serialize(),
-            url: "{{ route('testimonial.store') }}",
-            // type: "POST",
-            // dataType: 'json',
+            url: actural_url,
+            method: "POST",
             data: data,
             cache: false,
             contentType: false,
             processData: false,
-            method: 'POST',
+         
 
 
             success: function(data) {

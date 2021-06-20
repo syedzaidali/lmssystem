@@ -57,6 +57,7 @@
             <div class="modal-body">
                 <form id="newsletterrForm" name="newsletter" class="form-horizontal" enctype="multipart/form-data">
                     @csrf
+                    <input type="hidden"  id="actual_url" value="">
                     <input type="hidden" name="product_id" id="product_id">
                     <div class="form-group">
                         <label for="name" class="col-sm-2 control-label">Heading</label>
@@ -138,7 +139,7 @@ $(function() {
                 data: 'photo',
                 name: 'photo',
                 render: function(data, type, full, meta) {
-                    return "<img src=\"sol-assets/images/admin-newsletter/" + data +
+                    return "<img src=\"sol-assets/images/admin-newslatter/" + data +
                         "\" height=\"90\"/>";
                 }
             },
@@ -155,9 +156,10 @@ $(function() {
 
         $('#saveBtn').val("create-product");
         $('#product_id').val('');
-        $('#newsletter').trigger("reset");
+        $('#newsletterrForm').trigger("reset");
         $('#modelHeading').html("Add News Latter");
         $('#ajaxModel').modal('show');
+        $('#actual_url').val('add');
     });
 
     $('body').on('click', '.editProduct', function() {
@@ -165,6 +167,7 @@ $(function() {
         $.get("{{route('newsletter.index') }}" + '/' + product_id + '/edit', function(data) {
             $('#modelHeading').html("Edit Product");
             $('#saveBtn').val("edit-user");
+            $('#actual_url').val("edit");
             $('#ajaxModel').modal('show');
             $('#product_id').val(data.id);
             $('#name').val(data.heading);
@@ -179,17 +182,27 @@ $(function() {
         $(this).html('Sending..');
 
         // Get form
-        var form = $('#newsletter')[0];
+        var form = $('#newsletterrForm')[0];
 
         // Create an FormData object 
         var data = new FormData(form);
+           var actural_url = '';
+            if($('#actual_url').val() == 'add')
+            {
+                 actural_url= "{{ route('newsletter.store') }}"
+            }
+            if($('#actual_url').val() == 'edit')
+            {
+                 actural_url= "{{ route('newsletter-update') }}"
+                alert('succces');
+            }
 
         jQuery.each(jQuery('#photo')[0].files, function(i, file) {
             data.append('file-' + i, file);
         });
 
         $.ajax({
-            url: "{{route('newsletter.store')}}",
+            url: actural_url,
             data: data,
             cache: false,
             contentType: false,
@@ -199,7 +212,7 @@ $(function() {
 
             success: function(data) {
                 alert('success');
-                $('#newsletter').trigger("reset");
+                $('#newsletterrForm').trigger("reset");
                 $('#ajaxModel').modal('hide');
                 table.draw();
 

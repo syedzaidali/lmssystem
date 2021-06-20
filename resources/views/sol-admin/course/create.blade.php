@@ -178,8 +178,7 @@
 @endsection
 
 @section('sol-script')
-    <<script type="text/javascript" src="{{ asset('sol-assets/js/jquery-3.3.1.js') }}">
-        </script>
+        <script type="text/javascript" src="{{ asset('sol-assets/js/jquery-3.3.1.js') }}"></script>
         <script type="text/javascript" src="{{ asset('sol-assets/js/jquery-migrate-3.0.0.min.js') }}"></script>
         <script type="text/javascript" src="{{ asset('sol-assets/js/popper.min.js') }}"></script>
 

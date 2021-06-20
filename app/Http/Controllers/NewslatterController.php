@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+
 use App\Newslatter;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use DataTables;
 use Qs;
 use Validator;
@@ -32,7 +34,7 @@ class NewslatterController extends Controller
                             return $btn;
                     })
                     ->addcolumn('image',function($data){
-                        $url= asset('sol-assets/images/admin-newsletter/'.$data->photo);
+                        $url= asset('sol-assets/images/admin-newslatter/'.$data->photo);
                         return '<img src="'.$url.'" border="0" width="40" class="img-rounded" align="center" />';
                     })
                    
@@ -117,9 +119,31 @@ class NewslatterController extends Controller
      * @param  \App\Newslatter  $newslatter
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Newslatter $newslatter)
+    public function update(Request $request,$id)
     {
-        //
+        $data = Newslatter::findOrfail($id);
+        $input = $request->all();
+       
+        if ($file = $request->has('photo')) 
+         {      
+           $file = $request->file('photo');
+           
+           //  dd($request->file('photo'));
+            $name =time(). $file->getClientOriginalName();
+            
+            $file->move('sol-assets/images/admin-slider',$name);           
+            $input['photo'] = $name;
+            
+            
+        } 
+
+        dd($request);
+        $data->update($input);
+        //--- Logic Section Ends
+
+        //--- Redirect Section        
+        $msg = 'New Data Added Successfully.';
+        return response()->json($msg);  
     }
 
     /**
@@ -128,8 +152,9 @@ class NewslatterController extends Controller
      * @param  \App\Newslatter  $newslatter
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Newslatter $newslatter)
+    public function destroy($id)
     {
-        //
+        Newslatter::find($id)->delete();
+        return response()->json(['success'=>'Category deleted successfully.']);
     }
 }

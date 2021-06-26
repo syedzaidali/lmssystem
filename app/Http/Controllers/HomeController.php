@@ -23,7 +23,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('sol-admin.dashboard');
     }
-   
+
+
+    public function register()
+    {
+        return view('auth.register');
+    }
+
 }

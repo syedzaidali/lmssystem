@@ -438,7 +438,7 @@
     <!-- Wrapper End -->
 
 
-    {{-- @yield('sol-script') --}}
+    @yield('sol-script')
 
     <script type="text/javascript" src="{{asset('sol-assets/js/jquery-3.3.1.js')}}"></script>
     <script type="text/javascript" src="{{asset('sol-assets/js/jquery-migrate-3.0.0.min.js')}}"></script>
@@ -473,7 +473,7 @@
     <script type="text/javascript" src="{{asset('sol-assets/js/script.js')}}"></script>
 
 
-    @yield('sol-script')
+    {{-- @yield('sol-script') --}}
 
 
 

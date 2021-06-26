@@ -8,6 +8,7 @@ use App\Course;
 use App\SubCatehory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client;
 
 class CourseController extends Controller
 {
@@ -121,5 +122,62 @@ class CourseController extends Controller
     public function destroy(Course $course)
     {
         //
+    }
+
+    public function courseVideo()
+    {
+
+
+        $client = new Client();
+        $url = "https://api.terl3.com/api/v1/client/DTXGfC0txSf7Q7/courses";
+
+        $params = [
+        //    'id' => 1
+        ];
+
+        $headers = [
+            'Authorization' => 'Bearer 25b5cf50b2cf764ca02ed34e886db39c'
+        ];
+
+        $response = $client->request('GET', $url, [
+            // 'json' => $params,
+            'headers' => $headers,
+            'verify'  => false,
+        ]);
+
+        $responseBody = json_decode($response->getBody());
+
+
+        dd($responseBody);
+        return view('solfrontend.sol-index', compact('responseBody'));
+    }
+
+
+    public function courseContant(Request $request)
+    {
+
+        $request->id = 3;
+        $client = new Client();
+        $url = "https://api.terl3.com/api/v1/client/DTXGfC0txSf7Q7/courses/".($request->id);
+
+        $params = [
+        //    'id' => 1
+        ];
+
+        $headers = [
+            'Authorization' => 'Bearer 25b5cf50b2cf764ca02ed34e886db39c'
+        ];
+
+        $response = $client->request('GET', $url, [
+            // 'json' => $params,
+            'headers' => $headers,
+            'verify'  => false,
+        ]);
+
+        $responseBody = json_decode($response->getBody());
+
+
+        dd($responseBody);
+        return view('solfrontend.course-list', compact('responseBody'));
     }
 }

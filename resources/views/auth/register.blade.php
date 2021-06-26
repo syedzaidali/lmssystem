@@ -37,7 +37,7 @@
                             <div class="heading">
                                 <h3 class="text-center">Register to start learning</h3>
                                 <p class="text-center">Have an account? <a class="text-thm"
-                                        href="page-login.html">Login</a></p>
+                                        href="{{ route('login') }}">Login</a></p>
                             </div>
                             <div class="details">
                                 <form method="POST" action="{{ route('register') }}">

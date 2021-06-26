@@ -41,7 +41,7 @@
                             <div class="heading">
                                 <h3 class="text-center">Login to your account</h3>
                                 <p class="text-center">Don't have an account?
-                                    <a class="text-thm" href="">Sign Up!</a>
+                                    <a class="text-thm" href="{{ route('register') }}">Sign Up!</a>
                                 </p>
                             </div>
 

@@ -12,13 +12,14 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
+// Route::get()->name('register');
 
 Route::get('/homes', 'FrontController@soleHome')->name('sol-index');
 Route::get('/sol/course-list', 'FrontController@courseList')->name('sol-course-list');
-Route::get('/sol/course-details', 'FrontController@courseDetails')->name('sol-course-details');
+Route::get('/sol/course-details/{id}', 'FrontController@courseDetails');
 Route::get('/sol/shop', 'FrontController@solShop')->name('sol-shop');
 Route::get('/sol/shop-single', 'FrontController@solShopsingle')->name('sol-shop-single');
 Route::get('/sol/shop-cart', 'FrontController@solCart')->name('sol-shop-cart');
@@ -45,19 +46,19 @@ Route::get('/categoies/status/{id}', 'CategoryController@status')->name('categoi
 Route::get('/form', 'CategoryController@form')->name('form');
 
 // Categoires
-Route::resource('categories','CategoryController');
-Route::resource('subcategories','SubCatehoryController');
-Route::resource('childcategories','ChildCatehoryController');
+Route::resource('categories', 'CategoryController');
+Route::resource('subcategories', 'SubCatehoryController');
+Route::resource('childcategories', 'ChildCatehoryController');
 
 // Testimonial
-Route::resource('testimonial','TestimonialController');
+Route::resource('testimonial', 'TestimonialController');
 Route::post('/testimonial/update', 'TestimonialController@update')->name('testimonial-update');
 
 // Slider
-Route::resource('slider','SliderController');
+Route::resource('slider', 'SliderController');
 Route::post('/slider/update', 'SliderController@update')->name('slider-update');
 // NewsLetter
-Route::resource('newsletter','NewslatterController');
+Route::resource('newsletter', 'NewslatterController');
 Route::post('/newsletter/update', 'NewslatterController@update')->name('newsletter-update');
 
 // my Course
@@ -67,13 +68,16 @@ Route::post('/cousre/store', 'CourseController@store')->name('cousre-store');
 Route::get('/cousre/edit/{id}', 'CourseController@edit')->name('cousre-edit');
 Route::post('/cousre/update', 'CourseController@update')->name('cousre-update');
 Route::get('/get-categories-by-sub_categories', 'CourseController@getSubCat')->name('get-categories-by-sub_categories');
-Route::get('/get-sub_categories-by-child_categories','CourseController@getChildCat')->name('get-sub_categories-by-child_categories');
+Route::get('/get-sub_categories-by-child_categories', 'CourseController@getChildCat')->name('get-sub_categories-by-child_categories');
+
+Route::prefix('projects')->group(function () {
+
+    Route::get('courseVideo', 'CourseController@courseVideo')->name('courseVideo');
+    Route::get('courseContant', 'CourseController@courseContant')->name('courseContant');
 
 
+});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
-
-

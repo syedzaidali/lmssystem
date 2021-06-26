@@ -65,7 +65,7 @@
                                     <a href="#"><span class="title">Courses</span></a>
                                     <ul>
                                         <li><a href="{{route('sol-course-list')}}">Course List </a></li>
-                                        <li><a href="{{route('sol-course-details')}}">Course Detail</a></li>
+                                        
                                     </ul>
                                 </li>
 
